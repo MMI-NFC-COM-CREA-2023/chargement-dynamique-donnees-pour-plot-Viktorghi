@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TP2</title>
+    <style>
+        #myDiv {
+            width: 300px;
+            height: 200px;
+            background-color: lightblue;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -14,6 +21,18 @@
             </ul>
         </nav>
     </header>
+
+    <script type="module">
+
+        
+        async function afficherGraph1() {
+        const graph1Response = await fetch("./graph1.json");
+        const graph1 = await graph1Response.json();
+        console.log(graph1);
+            
+        }
+        afficherGraphique1(graph1);
+    </script>
 
     <main>
         <section id="graphique1">
