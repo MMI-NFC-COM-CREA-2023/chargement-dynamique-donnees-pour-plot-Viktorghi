@@ -1,3 +1,3 @@
-- nom :
-- prénom :
-- URL du site :
+- nom : Ghirardelli
+- prénom : Viktor
+- URL du site : https://tp2-page-chargement-dynamique.netlify.app
