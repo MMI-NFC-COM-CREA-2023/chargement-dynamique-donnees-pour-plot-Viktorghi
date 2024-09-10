@@ -22,18 +22,7 @@
         </nav>
     </header>
 
-    <script type="module">
-
-        
-        async function afficherGraph1() {
-        const graph1Response = await fetch("./graph1.json");
-        const graph1 = await graph1Response.json();
-        console.log(graph1);
-            
-        }
-        afficherGraphique1(graph1);
-    </script>
-
+  
     <main>
         <section id="graphique1">
             <h2>Graphique 1</h2>
@@ -55,5 +44,31 @@
 
         </section>
     </main>
+
+    <script>
+
+        
+        async function afficherGraph1() {
+        const graph1Response = await fetch("./graph1.json");
+        const graph1 = await graph1Response.json();
+        console.log(graph1);
+
+            
+        }
+        afficherGraph1();
+    </script>
+    <script>
+
+        
+        async function afficherGraph2() {
+        const graph2Response = await fetch("./graph2.json");
+        const graph2 = await graph2Response.json();
+        console.log(graph2);
+        
+            
+        }
+        afficherGraph1();
+    </script>
+
 </body>
 </html>
