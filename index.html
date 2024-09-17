@@ -5,70 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TP2</title>
     <style>
-        #myDiv {
-            width: 300px;
-            height: 200px;
+        #myDiv1, #myDiv2 {
+            width: 600px;
+            height: 400px;
             background-color: lightblue;
         }
     </style>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="#graphique1">Graphique 1</a></li>
-                <li><a href="#graphique2">Graphique 2</a></li>
+                <li><a href="#graph1">Graphique 1</a></li>
+                <li><a href="#graph2">Graphique 2</a></li>
             </ul>
         </nav>
     </header>
 
-  
     <main>
-        <section id="graphique1">
+        <section id="graph1">
             <h2>Graphique 1</h2>
             <p>Lorem ipsum dolor sit amet. Aut tempora quibusdam ut repellendus soluta 33 aliquid quis At laboriosam modi sit dicta quos sed recusandae omnis.</p>
             <figure>
                 <figcaption>Graph 1</figcaption>
-                <div id="myDiv"></div>
+                <div id="myDiv1"></div>
             </figure>
-
         </section>
 
-        <section id="graphique2">
+        <section id="graph2">
             <h2>Graphique 2</h2>
             <p>Sit consectetur sunt vel quia tenetur non corrupti architecto qui nihil eaque ut voluptatibus debitis.</p>
             <figure>
                 <figcaption>Graph 2</figcaption>
-                <div id="myDiv"></div>
+                <div id="myDiv2"></div>
             </figure>
-
         </section>
     </main>
 
     <script>
-
-        
         async function afficherGraph1() {
-        const graph1Response = await fetch("./graph1.json");
-        const graph1 = await graph1Response.json();
-        console.log(graph1);
+            const response = await fetch('./graph1.json');
+            const data = await response.json();
 
-            
+            const trace1 = {
+                x: data.map(item => item.Date),
+                y: data.map(item => item.Anomaly),
+                mode: 'markers',
+                type: 'scatter',
+                name: 'Anomaly'
+            };
+
+            const layout1 = {
+                title: 'Graphique 1 - Anomaly',
+                xaxis: { title: 'Date' },
+                yaxis: { title: 'Surface temperature anomaly (°C)' }
+            };
+
+            Plotly.newPlot('myDiv1', [trace1], layout1);
         }
-        afficherGraph1();
-    </script>
-    <script>
 
-        
         async function afficherGraph2() {
-        const graph2Response = await fetch("./graph2.json");
-        const graph2 = await graph2Response.json();
-        console.log(graph2);
-        
-            
-        }
-        afficherGraph1();
-    </script>
+            const response = await fetch('./graph2.json');
+            const data = await response.json();
 
+            const trace2 = {
+                x: data.map(d => 2023 - new Date(d.birthday).getUTCFullYear()),
+                y: data.map(d => d.gender === 'M' ? 1 : -1),
+                mode: 'markers',
+                type: 'scatter',
+                text: data.map(d => d.full_name),
+                marker: { color: data.map(d => d.gender === 'M' ? 'blue' : 'pink') }
+            };
+
+            const layout2 = {
+                title: 'Graphique 2 - Gender Distribution',
+                xaxis: { title: 'Age (years)' },
+                yaxis: { title: 'Women (-1) · Men (+1)', range: [-1, 1] }
+            };
+
+            Plotly.newPlot('myDiv2', [trace2], layout2);
+        }
+
+        afficherGraph1();
+        afficherGraph2();
+    </script>
 </body>
 </html>
